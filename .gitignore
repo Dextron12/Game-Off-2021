@@ -3,3 +3,4 @@ SDL2.dll
 component.cpp
 build.exe
 box.exe
+Makefile
