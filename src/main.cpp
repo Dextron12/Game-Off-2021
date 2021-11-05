@@ -10,65 +10,61 @@
 
 //custom Headers
 #include "Events.hpp"
-
+#include "Player.hpp"
 
 class Program{
 	private:
-		bool running;
-
-		Events EventHandler;
-	
-	public:
 		int width = 800; int height = 600;
+		
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 
+		bool running = false;
+
+		//Event Handler
+		Events EventHandler;
+
+	public:
 		Program(){
-			//Initiate SDL
+			//init sdl2
 			if (SDL_Init(SDL_INIT_EVERYTHING) < 0){
-				//Initiation failed.
 				std::cout << "Initiation Error: " << SDL_GetError() << std::endl;
 			}
-			//Create Window
-			window = SDL_CreateWindow("B.U.G", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_RESIZABLE);
+			//Create WIndow
+			window = SDL_CreateWindow("BUG", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_RESIZABLE);
+			//Check window
 			if (window == NULL){
-				std::cout << "Initiation Error" << SDL_GetError() << std::endl;
+				std::cout << "Initiation Error: " << SDL_GetError() << std::endl;
 			}
-			//Create Renderer
 			renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+			//Check renderer
 			if (renderer == NULL){
 				std::cout << "Initiation Error: " << SDL_GetError() << std::endl;
 			}
 
-			//Set up rest of application here.
+			//Gotten this far. Initiation complete!
 			running = true;
 
-			//call render loop
 			render();
-
 		}
 
 		void render(){
+			Player player(SDL_FRect{200,200,32,32});
 			while (!EventHandler.ApplicationQuit()){
 				EventHandler.update();
-				SDL_SetRenderDrawColor(renderer, 240, 240, 240, 255);
+				SDL_SetRenderDrawColor(renderer, 140, 140, 140, 255);
 				SDL_RenderClear(renderer);
+
+				player.update(renderer, &EventHandler);
 
 
 				SDL_RenderPresent(renderer);
-				//Handle events
-				if (EventHandler.ApplicationResized()){
-					width = SDL_GetWindowSurface(window)->w;
-					height = SDL_GetWindowSurface(window)->h;
-				}
 			}
 		}
 };
 
 int main(int argc, char* argv[]){
 	Program program;
-	program.render();
-
 	//Terminate application
 	return 0;
 }

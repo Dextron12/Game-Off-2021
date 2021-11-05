@@ -1,30 +1,34 @@
-//Gam Off 2021.
-//Theme: BUG.
-//Author: Dextron12.
+//Game Off 2021
+//Theme: BUG
+//Author: Dextron12
 
-//Standard headers
+#pragma once
+
+//standard includes
 #include <iostream>
 
-//SDL2 Headers
+//SDL2 includes
 #include <SDL2\SDL.h>
 
 //Custom Headers
 #include "Events.hpp"
-
-//Structs
-
-//Classes
+#include "Gui.hpp"
 
 class Player{
-	private:
-		SDL_Rect pos;
-		SDL_Texture* sprite;
-		Events* EventHandler;
+    private:
+        SDL_FRect pos;
+        SDL_Texture* sprite;
 
-	public:
-		Player(Events* EventHandler, float x, float y, SDL_Texture* sprite);
+        bool walking;
 
-		void update();
+        //Acceleration
+        int mass = 1;
+        float velocity = 0.8;
 
-		SDL_Rect getPos();
+    public:
+        Player(SDL_FRect pos, SDL_Texture* sprite = NULL);
+
+        void update(SDL_Renderer* renderer, Events* EventHandler);
+
+        SDL_Rect getPos();
 };

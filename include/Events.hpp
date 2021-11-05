@@ -32,17 +32,28 @@ class Events{
 		bool m_resize;
 
 		SDL_Event event;
+
 		gamePad controller;
 
+		int now, last; //DeltaTime calculation vars.
+		
+
 	public:
+		Events();
+		
+		float deltaTime;
 		void update();
 		void reset();
+
+		
 
 		//Getters
 		gamePad getGamePad();
 
 		bool ApplicationQuit();
 		bool ApplicationResized();
+
+
 
 
 

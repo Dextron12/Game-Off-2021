@@ -1,6 +1,12 @@
 #include "Events.hpp"
 #include <iostream>
 
+Events::Events(){
+	now = SDL_GetPerformanceCounter();
+	last = 0;
+	deltaTime = 0;
+}
+
 void Events::update(){
 	while(SDL_PollEvent(&event)){
 		if (event.type == SDL_QUIT){
@@ -84,4 +90,22 @@ void Events::update(){
 		}
 
 	}
+	//Update DeltaTime
+	last = now;
+	now = SDL_GetPerformanceCounter();
+	deltaTime = ((now - last)*1000/(double)SDL_GetPerformanceFrequency());
+
+	
+}
+
+bool Events::ApplicationQuit(){
+	return m_quit;
+}
+
+bool Events::ApplicationResized(){
+	return m_resize;
+}
+
+gamePad Events::getGamePad(){
+	return controller;
 }
