@@ -30,5 +30,5 @@ class Player{
 
         void update(SDL_Renderer* renderer, Events* EventHandler);
 
-        SDL_Rect getPos();
+        SDL_FRect getPos();
 };

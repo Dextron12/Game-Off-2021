@@ -17,6 +17,7 @@ void Player::update(SDL_Renderer* renderer, Events* EventHandler){
     } else {
         SDL_RenderCopyF(renderer, sprite, NULL, &pos);
     }
+    //std::cout << pos.x << ", " << pos.y << std::endl;
 
     //Logic
 
@@ -30,4 +31,8 @@ void Player::update(SDL_Renderer* renderer, Events* EventHandler){
     } else if (EventHandler->getGamePad().d == true){
         pos.x += ((mass * velocity) * EventHandler->deltaTime);
     }
+}
+
+SDL_FRect Player::getPos(){
+    return pos;
 }

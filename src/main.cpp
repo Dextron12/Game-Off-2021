@@ -11,6 +11,7 @@
 //custom Headers
 #include "Events.hpp"
 #include "Player.hpp"
+#include "Scene.hpp"
 
 class Program{
 	private:
@@ -50,12 +51,13 @@ class Program{
 
 		void render(){
 			Player player(SDL_FRect{200,200,32,32});
+			Scene scene(&EventHandler, &player);
 			while (!EventHandler.ApplicationQuit()){
 				EventHandler.update();
 				SDL_SetRenderDrawColor(renderer, 140, 140, 140, 255);
 				SDL_RenderClear(renderer);
 
-				player.update(renderer, &EventHandler);
+				scene.render(renderer);
 
 
 				SDL_RenderPresent(renderer);
