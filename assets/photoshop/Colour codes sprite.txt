@@ -1,0 +1,5 @@
+outline main colour: (12, 140, 12)
+Inline main colour: (34, 200, 34)
+
+
+eye colour: (240, 19, 55)
